@@ -7,8 +7,12 @@ In your terminal you will be asked to put max value for your random number.
 
 ---
 
-#### Screenshots section
+#### Screenshots
 
 ##### NVM
-##### REPL execution getRandomNumber function in CLI
-##### Nodemon
+
+![nvm](./screenshots/nvm-command.png)
+
+##### Nodemon and REPL execution getRandomNumber function in CLI
+
+![get-random-number](./screenshots/nodemon.png)
