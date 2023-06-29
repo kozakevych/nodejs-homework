@@ -26,8 +26,8 @@ const setSystemProcessCommand = () => {
       processCommand = MOST_INTENSIVE_PROCESS_WIN;
 
       // My windows machine was very slow when executing process command above
-      // It was so much better with refresh rate 15000 ¯\_(ツ)_/¯
-      refreshRate = 15000;
+      // It was so much better with refresh rate 1000 ¯\_(ツ)_/¯
+      refreshRate = 1000;
       break;
 
     default:
