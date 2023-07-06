@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "activity-monitor": "node activityMonitor.js"
+    "activity-monitor": "node activityMonitor.js",
+    "task1": "nodemon ./3-event-emitter/code-to-test.mjs"
   },
   "repository": {
     "type": "git",
