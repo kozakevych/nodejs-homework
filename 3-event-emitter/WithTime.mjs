@@ -1,3 +1,5 @@
+import EventEmitter from './EventEmitter.mjs';
+
 class WithTime extends EventEmitter {
   execute(asyncFunc, ...args) {}
 }
