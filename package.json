@@ -8,7 +8,8 @@
     "start": "nodemon index.js",
     "activity-monitor": "node activityMonitor.js",
     "task1": "nodemon ./3-event-emitter/task1.mjs",
-    "task2": "nodemon ./3-event-emitter/task2.mjs"
+    "task2": "nodemon ./3-event-emitter/task2.mjs",
+    "task3": "nodemon ./3-event-emitter/task3/task3.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
-    "@inquirer/prompts": "^2.2.0"
+    "@inquirer/prompts": "^2.2.0",
+    "csvtojson": "^2.0.10"
   }
 }
