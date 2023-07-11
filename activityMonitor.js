@@ -2,12 +2,14 @@ import childProcess from "child_process";
 import fs from "fs";
 import os from "os";
 
-const MAC_OS_TYPE = "Darwin";
-const LINUX_OS_TYPE = "Linux";
-const WINDOWS_OS_TYPE = "Windows_NT";
-
-const MOST_INTENSIVE_PROCESS_UNIX = "ps -A -o %cpu,%mem,comm | sort -nr | head -n 1";
-const MOST_INTENSIVE_PROCESS_WIN = `powershell "Get-Process | Sort-Object CPU -Descending | Select-Object -Property Name, CPU, WorkingSet -First 1 | ForEach-Object { $_.Name + ' ' + $_.CPU + ' ' + $_.WorkingSet }"`;
+import {
+  MAC_OS_TYPE,
+  LINUX_OS_TYPE,
+  WINDOWS_OS_TYPE,
+  MOST_INTENSIVE_PROCESS_UNIX,
+  MOST_INTENSIVE_PROCESS_WIN,
+  ACTIVITY_LOG_FILE_NAME
+} from "./config/activity-monitor-constants.js";
 
 const writeLogRate = 60000;
 let refreshRate = 100; // Ten times per second
@@ -53,7 +55,7 @@ const execProcess = (command) => {
 }
 
 const writeLog = () => {
-  const fileName = "activityMonitor.log";
+  const fileName = ACTIVITY_LOG_FILE_NAME;
   const logText = `${Date.now()} : ${currentProcessInfo}`;
 
   fs.appendFile(fileName, logText, (err) => {
