@@ -32,7 +32,6 @@ Program supposed to work on Mac/Linux/Windows. It shows most intensive process i
 
 ![windows-activity](./screenshots/win-activity.jpg)
 
-
 ---
 
 ### 3. Event Emitter & Buffer & Streams
@@ -52,9 +51,11 @@ Added scripts to run each task.
 ![task1](./screenshots/hw3/task1.png)
 
 ##### Task #2
+
 ![task2](./screenshots/hw3/task2.png)
 
 ##### Task #3
+
 ![task3](./screenshots/hw3/task3.png)
 
 ---

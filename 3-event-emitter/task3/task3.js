@@ -17,14 +17,14 @@ writableStream.on('error', (error) => {
 });
 
 csv()
-	.fromStream(readableStream)
-	.subscribe(jsonObj => {
-		const formattedChunk = replaceKeysAndStringify(jsonObj);
-		writableStream.write(formattedChunk, () => console.log('Chunk added!'));
-	}, 
-	(error) => {
-		console.error(`An error occurred during stream processing: ${error}`);
-	});
+  .fromStream(readableStream)
+  .subscribe(jsonObj => {
+    const formattedChunk = replaceKeysAndStringify(jsonObj);
+    writableStream.write(formattedChunk, () => console.log('Chunk added!'));
+  }, 
+  (error) => {
+    console.error(`An error occurred during stream processing: ${error}`);
+  });
 
 /**
  * Put object keys to lower case as in example.
@@ -32,13 +32,13 @@ csv()
  * Returns stringified chunk.
  */
 const replaceKeysAndStringify = (obj) => {
-	const exceptionKey = 'Amount';
+  const exceptionKey = 'Amount';
 
   const updatedJSON = Object.keys(obj).reduce((acc, key) => {
-		if (key !== exceptionKey) {
-			acc[key.toLowerCase()] = obj[key];
-		}
+    if (key !== exceptionKey) {
+      acc[key.toLowerCase()] = obj[key];
+    }
     return acc;
   }, {});
-	return JSON.stringify(updatedJSON) + '\n';
+  return JSON.stringify(updatedJSON) + '\n';
 }
