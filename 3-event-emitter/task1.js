@@ -1,4 +1,4 @@
-import EventEmitter from './EventEmitter.mjs';
+import EventEmitter from './EventEmitter.js';
 
 const myEmitter = new EventEmitter();
 

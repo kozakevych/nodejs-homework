@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "activity-monitor": "node activityMonitor.js",
-    "task1": "nodemon ./3-event-emitter/task1.mjs",
-    "task2": "nodemon ./3-event-emitter/task2.mjs",
+    "task1": "nodemon ./3-event-emitter/task1.js",
+    "task2": "nodemon ./3-event-emitter/task2.js",
     "task3": "nodemon ./3-event-emitter/task3/task3.js"
   },
   "repository": {

@@ -1,4 +1,4 @@
-import WithTime from './WithTime.mjs';
+import WithTime from './WithTime.js';
 import https from 'https';
 
 const withTime = new WithTime();

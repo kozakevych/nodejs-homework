@@ -1,5 +1,11 @@
-const csv = require('csvtojson');
-const fs = require('fs');
+import csv from 'csvtojson';
+import fs from 'fs';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const csvFilePath = `${__dirname}/csvdirectory/nodejs-hw1-ex1.csv`;
 
