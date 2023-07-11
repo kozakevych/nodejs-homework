@@ -1,6 +1,12 @@
 const { input } = require('@inquirer/prompts');
 
-input({ message: 'Please type max value range for your random number:' }).then(answer => {
+input({
+  message: 'Please type max value range for your random number:'
+}).then(answer => {
+  if (Number.isNaN(+answer)) {
+    console.log('Provided value is not a number!');
+    return;
+  }
   const number = getRandomNumber(answer);
   console.log('This is your random number:', number);
 });
