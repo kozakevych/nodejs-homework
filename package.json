@@ -4,7 +4,7 @@
   "description": "hometasks for nodejs program",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd 4-testing && npm install && npm run test:coverage",
     "start": "nodemon index.js"
   },
   "repository": {
