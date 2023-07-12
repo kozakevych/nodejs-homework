@@ -8,6 +8,7 @@
     "test:coverage": "jest --coverage"
   },
   "author": "",
+  "type": "module",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.0.0",
