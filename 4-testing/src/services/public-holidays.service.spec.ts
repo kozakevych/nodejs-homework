@@ -42,7 +42,7 @@ const mockShortenedHolidays = [{
   name: 'Easter Sunday',
 }];
 
-describe('Public Holidays Service', () => {
+describe('Public Holidays Service Unit Tests', () => {
   describe('getListOfPublicHolidays', () => {
     afterEach(() => {
       jest.clearAllMocks();
