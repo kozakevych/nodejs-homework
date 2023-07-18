@@ -48,6 +48,9 @@ const server = http.createServer((req, res) => {
     }
 
     if (method === GET && path.endsWith(HOBBIES_ROUTE)) {
+      res.setHeader('Cache-Control', 'max-age=3600');
+      res.setHeader('Expires', new Date(Date.now() + 3600000).toUTCString());
+
       getUserHobbies(req, res, userId);
       return;
     } 
