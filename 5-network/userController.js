@@ -5,9 +5,16 @@ export const getUserById = (req, res, userId) => {
 
   if (searchedUser) {
     const { id, name, email } = searchedUser;
+    const links = [{
+      rel: 'hobbies',
+      href: `/users/${id}/hobbies`,
+      method: 'GET',
+      description: 'Retrieve the list of hobbies for this user',
+    }];
+
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = 200;
-    res.end(JSON.stringify({id, name, email}));
+    res.end(JSON.stringify({id, name, email, links}));
   } else {
     res.statusCode = 404;
     res.end('User not found');
