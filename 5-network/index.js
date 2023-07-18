@@ -10,22 +10,35 @@ import {
   addHobbyToUser,
   deleteHobbyFromUser
 } from './userController.js';
+import {
+  DELETE,
+  GET,
+  POST,
+  PUT,
+  HOBBIES_ROUTE,
+  USERS_ROUTE
+} from './config/constants.js';
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const path = parsedUrl.pathname;
   const method = req.method;
 
-  if (path === '/users') {
-    if (method === 'GET') {
+  if (path === USERS_ROUTE) {
+    if (method === GET) {
       getAllUsers(req, res);
-    } else if (method === 'POST') {
+      return;
+    } 
+    if (method === POST) {
       createUser(req, res);
-    } else {
-      res.statusCode = 405;
-      res.end('Method Not Allowed');
+      return;
     }
-  } else if (path.startsWith('/users/')) {
+    res.statusCode = 405;
+    res.end('Method Not Allowed');
+    return;
+  }
+
+  if (path.startsWith(`${USERS_ROUTE}/`)) {
     const userId = path.split('/')[2];
 
     if (!userId || Number.isNaN(+userId)) {
@@ -34,26 +47,38 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    if (method === 'GET' && path.endsWith('/hobbies')) {
+    if (method === GET && path.endsWith(HOBBIES_ROUTE)) {
       getUserHobbies(req, res, userId);
-    } else if (method === 'POST' && path.endsWith('/hobbies')) {
+      return;
+    } 
+    if (method === POST && path.endsWith(HOBBIES_ROUTE)) {
       addHobbyToUser(req, res, userId);
-    } else if (method === 'DELETE' && path.endsWith('/hobbies')) {
-      deleteHobbyFromUser(req, res, userId);
-    } else if (method === 'GET') {
-      getUserById(req, res, userId);
-    } else if (method === 'PUT') {
-      updateUser(req, res, userId);
-    } else if (method === 'DELETE') {
-      deleteUser(req, res, userId);
-    } else {
-      res.statusCode = 405;
-      res.end('Method Not Allowed');
+      return;
     }
-  } else {
-    res.statusCode = 404;
-    res.end('Not Found');
+    if (method === DELETE && path.endsWith(HOBBIES_ROUTE)) {
+      deleteHobbyFromUser(req, res, userId);
+      return;
+    }
+    if (method === GET) {
+      getUserById(req, res, userId);
+      return;
+    }
+    if (method === PUT) {
+      updateUser(req, res, userId);
+      return;
+    }
+    if (method === DELETE) {
+      deleteUser(req, res, userId);
+      return;
+    } 
+
+    res.statusCode = 405;
+    res.end('Method Not Allowed');
+    return;
   }
+
+  res.statusCode = 404;
+  res.end('Not Found');
 });
 
 server.listen(3000, () => {
