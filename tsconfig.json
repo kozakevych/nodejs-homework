@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "6-express",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
