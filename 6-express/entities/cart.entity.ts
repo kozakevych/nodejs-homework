@@ -6,7 +6,7 @@ export interface CartItemEntity {
 }
 
 export interface CartEntity {
-  id: string;
+  id: string; // uuid
   userId: string;
   isDeleted: boolean;
   items: CartItemEntity[];
