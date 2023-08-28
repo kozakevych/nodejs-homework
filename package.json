@@ -23,6 +23,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
-    "@inquirer/prompts": "^2.2.0"
+    "@inquirer/prompts": "^2.2.0",
+    "path-to-regexp": "^6.2.1"
   }
 }
