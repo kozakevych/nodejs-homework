@@ -1,18 +1,20 @@
-const carts: any[] = [];
+import { cart } from '../entities/cart.entity';
+
+const cartsMock: any[] = [cart];
 
 class CartRepository {
   getCartByUserId(userId: string) {
-    return carts.find(cart => cart.userId === userId);
+    return cartsMock.find(cart => cart.userId === userId);
   }
 
   createCart(userId: string) {
     const newCart = { userId, items: [] };
-    carts.push(newCart);
+    cartsMock.push(newCart);
     return newCart;
   }
 
   updateCart(userId: string, items: any[]) {
-    const cart = carts.find(cart => cart.userId === userId);
+    const cart = cartsMock.find(cart => cart.userId === userId);
     if (cart) {
       cart.items = items;
       return cart;

@@ -1,12 +1,14 @@
-const products: any[] = [];
+import { product } from "../entities/product.entity";
+
+const productsMock: any[] = [product];
 
 class ProductRepository {
   getAllProducts() {
-    return products;
+    return productsMock;
   }
 
   getProductById(id: string) {
-    return products.find(product => product.id === id);
+    return productsMock.find(product => product.id === id);
   }
 }
 

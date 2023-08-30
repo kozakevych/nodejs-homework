@@ -4,7 +4,7 @@ import Joi from 'joi';
 
 class CartController {
   async getCart(req: Request, res: Response) {
-    const { userId } = req;
+    const { userId } = req as any;
     const cart = await CartService.getCartByUserId(userId);
     if (!cart) {
       return res.status(404).json({ error: 'Cart not found' });
@@ -13,13 +13,13 @@ class CartController {
   }
 
   async createCart(req: Request, res: Response) {
-    const { userId } = req;
+    const { userId } = req as any;
     const newCart = await CartService.createCart(userId);
     res.status(201).json(newCart);
   }
 
   async updateCart(req: Request, res: Response) {
-    const { userId } = req;
+    const { userId } = req as any;
     const { items } = req.body;
 
     const itemsSchema = Joi.array().items(

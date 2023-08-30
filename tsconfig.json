@@ -5,6 +5,8 @@
     "outDir": "dist",
     "rootDir": "6-express",
     "strict": true,
-    "esModuleInterop": true
+    "baseUrl": "node_modules/@types",
+    "typeRoots": ["**/*.d.ts"],
+    "esModuleInterop": true,
   }
 }
