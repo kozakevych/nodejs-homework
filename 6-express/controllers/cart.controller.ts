@@ -20,21 +20,38 @@ class CartController {
   async createCart(req: Request, res: Response) {
     const { userId } = req as any;
     const newCart = await CartService.createCart(userId);
-    res.status(201).json(newCart);
+    res.status(201).json({
+      data: {
+        cart: newCart,
+        totalPrice: 0
+      },
+      error: null
+    });
   }
 
   async updateCart(req: Request, res: Response) {
     const { userId } = req as any;
     const { items } = req.body;
 
-    const itemsSchema = Joi.array().items(
-      Joi.object({
-        productId: Joi.string().required(),
-        quantity: Joi.number().integer().min(1).required(),
-      })
-    );
+    const productSchema = Joi.object({
+      id: Joi.string().uuid().required(),
+      title: Joi.string().required(),
+      description: Joi.string().required(),
+      price: Joi.number().positive().required()
+    });
 
-    const { error } = itemsSchema.validate(items);
+    const itemSchema = Joi.object({
+      product: productSchema,
+      count: Joi.number().integer().positive().required()
+    });
+
+    const requestSchema = Joi.object({
+      id: Joi.string().uuid().required(),
+      items: Joi.array().items(itemSchema).min(1).required()
+    });
+
+    const { error } = requestSchema.validate(req.body);
+
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }

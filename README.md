@@ -26,4 +26,8 @@ Product routes to call:
 `http://localhost:3000/api/products`
 
 `http://localhost:3000/api/products/51422fcd-0366-4186-ad5b-c23059b6f64f`
+
+Cart routes to call:
+
+http://localhost:3000/api/profile/cart
  
