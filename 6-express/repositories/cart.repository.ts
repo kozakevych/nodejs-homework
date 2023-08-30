@@ -1,4 +1,4 @@
-import { cart } from '../entities/cart.entity';
+import { CartEntity, CartItemEntity, cart } from '../entities/cart.entity';
 
 const cartsMock: any[] = [cart];
 
@@ -27,6 +27,21 @@ class CartRepository {
     if (cart) {
       cart.isDeleted = true;
       return cart;
+    }
+    return null;
+  }
+
+  checkoutCart(userId: string) {
+    const cart = cartsMock.find(cart => cart.userId === userId);
+    if (cart) {
+      const totalPrice = cart.items.reduce((acc: number, item: CartItemEntity) => {
+        return acc += item.product.price * item.count;
+      }, 0);
+
+      return {
+        cart,
+        totalPrice
+      };
     }
     return null;
   }

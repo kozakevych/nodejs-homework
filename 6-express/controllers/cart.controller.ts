@@ -77,6 +77,39 @@ class CartController {
       error: null
     });
   }
+
+  async checkoutCart(req: Request, res: Response) {
+    const { userId } = req as any;
+    const cartCheckout = await CartService.checkoutCart(userId);
+
+    if (!cartCheckout) {
+      return res.status(404).json({ error: 'Cart not found' });
+    }
+
+    const { cart, totalPrice } = cartCheckout;
+
+    // Mocked data (except cart & total price) in our scenario
+    res.status(200).json({
+      data: {
+        order: {
+          ...cart,
+          payment: {
+            type: "paypal",
+            address: "London",
+            creditCard: "1234-1234-1234-1234"
+          },
+          delivery: {
+            type: "post",
+            address: "London"
+          },
+          comments: "",
+          status: "created",
+          totalPrice
+        }
+      },
+      error: null
+    });
+  }
 }
 
 export default new CartController();

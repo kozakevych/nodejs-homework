@@ -16,7 +16,10 @@ class CartService {
   async deleteCart(userId: string) {
     return CartRepository.deleteCart(userId);
   }
-  // get checkout
+
+  async checkoutCart(userId: string) {
+    return CartRepository.checkoutCart(userId);
+  }
 }
 
 export default new CartService();

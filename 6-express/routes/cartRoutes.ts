@@ -8,7 +8,6 @@ router.get('/', authMiddleware, CartController.getCart);
 router.post('/', authMiddleware, CartController.createCart);
 router.put('/', authMiddleware, CartController.updateCart);
 router.delete('/', authMiddleware, CartController.deleteCart);
-
-// router.post('/profile/cart/checkout', CartController.);
+router.post('/checkout', authMiddleware, CartController.checkoutCart);
 
 export default router;
