@@ -4,7 +4,7 @@ const cartsMock: any[] = [cart];
 
 class CartRepository {
   getCartByUserId(userId: string) {
-    return cartsMock.find(cart => cart.userId === userId);
+    return cartsMock.find(cart => (cart.userId === userId) && !cart.isDeleted);
   }
 
   createCart(userId: string) {
@@ -17,6 +17,15 @@ class CartRepository {
     const cart = cartsMock.find(cart => cart.userId === userId);
     if (cart) {
       cart.items = items;
+      return cart;
+    }
+    return null;
+  }
+
+  deleteCart(userId: string) {
+    const cart = cartsMock.find(cart => cart.userId === userId);
+    if (cart) {
+      cart.isDeleted = true;
       return cart;
     }
     return null;

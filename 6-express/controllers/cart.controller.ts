@@ -63,6 +63,20 @@ class CartController {
       res.status(404).json({ error: error.message });
     }
   }
+
+  async deleteCart(req: Request, res: Response) {
+    const { userId } = req as any;
+    const cart = await CartService.deleteCart(userId);
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found' });
+    }
+    res.status(200).json({
+      data: {
+        success: true
+      },
+      error: null
+    });
+  }
 }
 
 export default new CartController();

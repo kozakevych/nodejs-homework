@@ -13,7 +13,9 @@ class CartService {
     return CartRepository.updateCart(userId, items);
   }
 
-  // remove cart
+  async deleteCart(userId: string) {
+    return CartRepository.deleteCart(userId);
+  }
   // get checkout
 }
 
