@@ -1,7 +1,4 @@
-import { product } from "../entities/product.entity";
-import pool from '../db'; // Import your database connection
-
-const productsMock: any[] = [product];
+import pool from '../db';
 
 async function getProducts() {
   try {
