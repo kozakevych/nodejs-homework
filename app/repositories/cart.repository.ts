@@ -1,8 +1,3 @@
-import { CartEntity, CartItemEntity, cart } from '../entities/cart.entity';
-
-const cartsMock: any[] = [cart];
-
-import Product from '../models/product';
 import Cart from '../models/cart';
 
 async function getCart(userId: string) {
@@ -13,20 +8,65 @@ async function getCart(userId: string) {
       }
     });
 
-    if (!cart || !cart.dataValues) {
+    if (!cart || !cart.dataValues || cart.isDeleted) {
       return null;
     }
-
-    const products = await Product.findAll({
-      where: {
-        id: cart.dataValues.items,
-      },
-    });
-    cart.dataValues.items = products;
+    cart.dataValues.items = JSON.parse(cart.dataValues.items);
+    delete cart.dataValues.isDeleted;
     return cart.dataValues
   } catch (error) {
     console.error('Error fetching Carts:', error);
     throw error;
+  }
+}
+
+async function createCartDB(userId: string) {
+  try {
+    const cart = await Cart.create({ userId });
+    return cart;
+  } catch (error: any) {
+    throw new Error(`Error creating cart: ${error.message}`);
+  }
+}
+
+async function updateCartDB(userId: string, items: any) {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId
+      }
+    });
+
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
+
+    cart.items = [JSON.stringify(items)];
+
+    await cart.save();
+    return cart;
+  } catch (error: any) {
+    throw new Error(`Error updating cart: ${error.message}`);
+  }
+}
+
+async function deleteCartDB(userId: string) {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId
+      }
+    });
+
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
+
+    cart.isDeleted = true;
+    await cart.save();
+    return cart;
+  } catch (error: any) {
+    throw new Error(`Error deleting cart: ${error.message}`);
   }
 }
 
@@ -35,34 +75,29 @@ class CartRepository {
     return getCart(userId);
   }
 
-  createCart(userId: string) {
-    const newCart = { userId, items: [] };
-    cartsMock.push(newCart);
+  async createCart(userId: string) {
+    const newCart = await createCartDB(userId);
     return newCart;
   }
 
-  updateCart(userId: string, items: any[]) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
+  async updateCart(userId: string, items: any[]) {
+    const cart = await updateCartDB(userId, items) as any;
     if (cart) {
-      cart.items = items;
+      cart.items = JSON.parse(cart.items);
       return cart;
     }
     return null;
   }
 
-  deleteCart(userId: string) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
-    if (cart) {
-      cart.isDeleted = true;
-      return cart;
-    }
-    return null;
+  async deleteCart(userId: string) {
+    const deletedCart = await deleteCartDB(userId);
+    return deletedCart; 
   }
 
-  checkoutCart(userId: string) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
+  async checkoutCart(userId: string) {
+    const cart = await getCart(userId);
     if (cart) {
-      const totalPrice = cart.items.reduce((acc: number, item: CartItemEntity) => {
+      const totalPrice = cart.items.reduce((acc: number, item: any) => {
         return acc += item.product.price * item.count;
       }, 0);
 

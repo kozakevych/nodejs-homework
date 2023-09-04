@@ -6,12 +6,7 @@ export default class Cart extends Model {
   public id!: string;
   public userId!: string;
   public items!: string[];
-
-  public addItem(productId: string) {
-    if (!this.items.includes(productId)) {
-      this.items.push(productId);
-    }
-  }
+  public isDeleted!: boolean;
 }
 
 Cart.init(
@@ -28,6 +23,10 @@ Cart.init(
     items: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: [],
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
     },
   },
   {

@@ -12,6 +12,10 @@ module.exports = {
       items: {
         type: Sequelize.ARRAY(Sequelize.STRING)
       },
+      isDeleted: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

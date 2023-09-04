@@ -10,6 +10,9 @@ class Cart extends Model<Cart> {
 
   @Column(DataType.ARRAY)
   items!: Array<string>;
+
+  @Column
+  isDeleted!: boolean;
 }
 
 export default Cart;
