@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "app",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "baseUrl": "node_modules/@types",
+    "typeRoots": ["**/*.d.ts"],
+    "esModuleInterop": true,
+  }
+}
