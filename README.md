@@ -29,7 +29,7 @@ Product routes to call:
 
 `http://localhost:3000/api/products/51422fcd-0366-4186-ad5b-c23059b6f64f`
 
-![get-product](./screenshots//6-express/product-get.png)
+![get-product](./screenshots/6-express/product-get.png)
 
 ---
 
@@ -39,5 +39,15 @@ Cart routes to call:
 
 `http://localhost:3000/api/profile/cart/checkout`
 
-![get-cart](./screenshots//6-express/cart-get.png)
+![get-cart](./screenshots/6-express/cart-get.png)
+
+##### 7. Relational Database
+
+Docker: `docker-compose up -d`.
+
+Migrations command: `npx sequelize-cli db:migrate`.
+
+Seeds command: `npx sequelize-cli db:seed:all`.
+
+![example-db](./screenshots/7-rel-db/db-example.png)
  
