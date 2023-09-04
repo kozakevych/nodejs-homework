@@ -1,11 +1,24 @@
-import pool from '../db';
+import { ProductEntity } from '../entities/product.entity';
+import Product from '../models/product';
 
 async function getProducts() {
   try {
-    const client = await pool.connect();
-    const result = await client.query('SELECT * FROM "Products"');
-    client.release();
-    return result.rows;
+    const productsList = await Product.findAll();
+    return productsList;
+  } catch (error) {
+    console.error('Error fetching Products:', error);
+    throw error;
+  }
+}
+
+export async function getProductFromDB(productId: string): Promise<ProductEntity | null> {
+  try {
+    const product = await Product.findOne({
+      where: {
+        id: productId
+      }
+    });
+    return product;
   } catch (error) {
     console.error('Error fetching Products:', error);
     throw error;
@@ -17,9 +30,8 @@ class ProductRepository {
     return getProducts();
   }
 
-  async getProductById(id: string) {
-    const products = await getProducts();
-    return products.find(product => product.id === id);
+  getProductById(id: string): Promise<ProductEntity | null> {
+    return getProductFromDB(id);
   }
 }
 

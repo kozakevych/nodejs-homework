@@ -2,9 +2,37 @@ import { CartEntity, CartItemEntity, cart } from '../entities/cart.entity';
 
 const cartsMock: any[] = [cart];
 
+import Product from '../models/product';
+import Cart from '../models/cart';
+
+async function getCart(userId: string) {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId
+      }
+    });
+
+    if (!cart || !cart.dataValues) {
+      return null;
+    }
+
+    const products = await Product.findAll({
+      where: {
+        id: cart.dataValues.items,
+      },
+    });
+    cart.dataValues.items = products;
+    return cart.dataValues
+  } catch (error) {
+    console.error('Error fetching Carts:', error);
+    throw error;
+  }
+}
+
 class CartRepository {
-  getCartByUserId(userId: string) {
-    return cartsMock.find(cart => (cart.userId === userId) && !cart.isDeleted);
+  async getCartByUserId(userId: string) {
+    return getCart(userId);
   }
 
   createCart(userId: string) {
