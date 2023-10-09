@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "express-6": "ts-node ./6-express/index.ts",
+    "nosql-7": "ts-node ./7-nosql-db/index.ts",
+    "seeds": "node ./7-nosql-db/seeds/seed-products.js && node ./7-nosql-db/seeds/seed-carts.js",
     "build": "tsc"
   },
   "repository": {
@@ -29,6 +31,7 @@
     "express": "^4.18.2",
     "joi": "^17.10.0",
     "mongodb": "^6.1.0",
+    "mongoose": "^7.6.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
