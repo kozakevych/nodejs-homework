@@ -1,0 +1,36 @@
+version: '3'
+services:
+  # MongoDB container
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: your-mongo-username
+      MONGO_INITDB_ROOT_PASSWORD: your-mongo-password
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  # Node.js application container
+  app:
+    build:
+      context: ./7-nosql-db  # Path to your Node.js app's Dockerfile
+    container_name: app-container
+    ports:
+      - "3000:3000"  # Adjust the port if your app listens on a different port
+    depends_on:
+      - mongodb
+    environment:
+      - NODE_ENV=production  # Set your desired environment variables here
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
