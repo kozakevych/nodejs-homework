@@ -86,13 +86,15 @@ class CartController {
       return res.status(404).json({ error: 'Cart not found' });
     }
 
-    const { cart, totalPrice } = cartCheckout;
+    const { id, user, items, totalPrice } = cartCheckout;
 
     // Mocked data (except cart & total price) in our scenario
     res.status(200).json({
       data: {
         order: {
-          ...cart,
+          userId: user,
+          id,
+          items,
           payment: {
             type: "paypal",
             address: "London",

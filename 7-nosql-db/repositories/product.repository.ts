@@ -1,14 +1,14 @@
-import { product } from "../entities/product.entity";
-
-const productsMock: any[] = [product];
+import { Product } from '../models/product.model';
 
 class ProductRepository {
-  getAllProducts() {
-    return productsMock;
+  async getAllProducts() {
+    const Products = await Product.find({});
+    return Products;
   }
 
-  getProductById(id: string) {
-    return productsMock.find(product => product.id === id);
+  async getProductById(id: string) {
+    const Products = await Product.find({id});
+    return Products;
   }
 }
 

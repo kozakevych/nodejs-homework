@@ -1,45 +1,48 @@
-import { CartEntity, CartItemEntity, cart } from '../entities/cart.entity';
-
-const cartsMock: any[] = [cart];
+import { CartItemEntity } from '../entities/cart.entity';
+import { Cart } from '../models/cart.model';
 
 class CartRepository {
-  getCartByUserId(userId: string) {
-    return cartsMock.find(cart => (cart.userId === userId) && !cart.isDeleted);
+  async getCartByUserId(userId: string) {
+    const cartById = await Cart.findOne({userId});
+    if (!cartById) {
+      return null;
+    }
+    return cartById;
   }
 
-  createCart(userId: string) {
-    const newCart = { userId, items: [] };
-    cartsMock.push(newCart);
-    return newCart;
+  async createCart(userId: string) {
+    const newCart = new Cart({userId, items: [] });
+    await newCart.save();
+    return {userId, items: [] };
   }
 
-  updateCart(userId: string, items: any[]) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
+  async updateCart(userId: string, items: any[]) {
+    const cart = await Cart.findOneAndUpdate({userId}, {items}, { new: true });
     if (cart) {
-      cart.items = items;
       return cart;
     }
     return null;
   }
 
-  deleteCart(userId: string) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
+  async deleteCart(userId: string) {
+    const cart = await Cart.findOneAndUpdate({userId}, {isDeleted: true}, { new: true });
     if (cart) {
-      cart.isDeleted = true;
       return cart;
     }
     return null;
   }
 
-  checkoutCart(userId: string) {
-    const cart = cartsMock.find(cart => cart.userId === userId);
-    if (cart) {
-      const totalPrice = cart.items.reduce((acc: number, item: CartItemEntity) => {
+  async checkoutCart(userId: string) {
+    const cartById = await Cart.findOne({userId});
+    if (cartById && cartById.items) {
+      const {id, userId, items} = cartById;
+      const totalPrice = (items as any).reduce((acc: number, item: CartItemEntity) => {
         return acc += item.product.price * item.count;
       }, 0);
-
       return {
-        cart,
+        id,
+        user: userId,
+        items,
         totalPrice
       };
     }
