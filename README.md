@@ -39,5 +39,11 @@ Cart routes to call:
 
 `http://localhost:3000/api/profile/cart/checkout`
 
-![get-cart](./screenshots//6-express/cart-get.png)
+![get-cart](./screenshots/6-express/cart-get.png)
+
+
+##### 8. NoSQL Databases
+
+![products](./screenshots/8-no-sql/products.png)
+![carts](./screenshots/8-no-sql/carts.png)
  
