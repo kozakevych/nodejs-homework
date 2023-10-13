@@ -1,16 +1,32 @@
-import { Request, Response, NextFunction } from 'express';
+import * as jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
-export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
-  const userId = req.headers['x-user-id'] as string;
-  if (!userId) {
-    return res.status(401).json({
-      data: null,
-      error: {
-        message: "Header x-user-id is missing or no user with such id"
-      }
-    });
-  }
+export interface CurrentUser {
+    id: string,
+    email: string,
+    role: string,
+    user_id: string
+}
 
-  req.userId = userId;
-  next();
-};
+export async function verifyToken (req: Request, res: Response, next: NextFunction) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return res.status(401).send("Token is required");
+    }
+
+    const [tokenType, token] = authHeader.split(' ');
+
+    if (tokenType !== 'Bearer') {
+        return res.status(403).send("Invalid Token");
+    }
+
+    try {
+        const user = jwt.verify(token, 'someverysecterstring'!) as CurrentUser;
+
+        req.user = user;
+    } catch (err) {
+        return res.status(401).send("Invalid Token");
+    }
+    return next();
+}

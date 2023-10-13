@@ -4,7 +4,10 @@ import Joi from 'joi';
 
 class CartController {
   async getCart(req: Request, res: Response) {
-    const { userId } = req as any;
+    const userId = req.header('x-user-id');
+    if (!userId) {
+      return res.status(404).json({ error: 'No user id provided!' });
+    }
     const cart = await CartService.getCartByUserId(userId);
     if (!cart) {
       return res.status(404).json({ error: 'Cart not found' });
@@ -18,7 +21,10 @@ class CartController {
   }
 
   async createCart(req: Request, res: Response) {
-    const { userId } = req as any;
+    const userId = req.header('x-user-id');
+    if (!userId) {
+      return res.status(404).json({ error: 'No user id provided!' });
+    }
     const newCart = await CartService.createCart(userId);
     res.status(201).json({
       data: {
@@ -30,7 +36,10 @@ class CartController {
   }
 
   async updateCart(req: Request, res: Response) {
-    const { userId } = req as any;
+    const userId = req.header('x-user-id');
+    if (!userId) {
+      return res.status(404).json({ error: 'No user id provided!' });
+    }
     const { items } = req.body;
 
     const productSchema = Joi.object({
@@ -65,7 +74,10 @@ class CartController {
   }
 
   async deleteCart(req: Request, res: Response) {
-    const { userId } = req as any;
+    const userId = req.header('x-user-id');
+    if (!userId) {
+      return res.status(404).json({ error: 'No user id provided!' });
+    }
     const cart = await CartService.deleteCart(userId);
     if (!cart) {
       return res.status(404).json({ error: 'Cart not found' });
@@ -79,7 +91,10 @@ class CartController {
   }
 
   async checkoutCart(req: Request, res: Response) {
-    const { userId } = req as any;
+    const userId = req.header('x-user-id');
+    if (!userId) {
+      return res.status(404).json({ error: 'No user id provided!' });
+    }
     const cartCheckout = await CartService.checkoutCart(userId);
 
     if (!cartCheckout) {
