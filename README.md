@@ -47,3 +47,24 @@ Cart routes to call:
 ![products](./screenshots/8-no-sql/products.png)
 ![carts](./screenshots/8-no-sql/carts.png)
  
+##### 9. Authorization and Authentication
+
+- Register user:
+
+![register-user](./screenshots/9-auth/register-user.png)
+
+- User login:
+
+![login-user](./screenshots/9-auth/login.png)
+
+- Get cart with token:
+
+![get-with-bearer-token](./screenshots/9-auth/get-with-bearer-token.png)
+
+- Simple user trying to delete:
+
+![forbidden](./screenshots/9-auth/forbidden-delete.png)
+
+- Admin user trying to delete:
+
+![delete-success](./screenshots/9-auth/delete-admin.png)
