@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "express-6": "ts-node ./6-express/index.ts",
+    "nosql-7": "ts-node ./7-nosql-db/index.ts",
+    "auth-8": "ts-node ./7-nosql-db/index.ts",
+    "seeds": "node ./7-nosql-db/seeds/seed-products.js && node ./7-nosql-db/seeds/seed-carts.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -18,9 +23,23 @@
   },
   "homepage": "https://github.com/kozakevych/nodejs-homework#readme",
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@types/bcryptjs": "^2.4.4",
+    "@types/express": "^4.17.19",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.8.5",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@inquirer/prompts": "^2.2.0"
+    "@inquirer/prompts": "^2.2.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "joi": "^17.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.6.1"
   }
 }
