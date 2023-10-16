@@ -22,7 +22,7 @@ export async function verifyToken (req: Request, res: Response, next: NextFuncti
     }
 
     try {
-        const user = jwt.verify(token, 'someverysecterstring'!) as CurrentUser;
+        const user = jwt.verify(token, process.env.TOKEN_KEY!) as CurrentUser;
 
         req.user = user;
     } catch (err) {

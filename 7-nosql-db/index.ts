@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import User from './models/user.model';
 import bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 export interface CurrentUser {
   id: string,
@@ -13,9 +14,6 @@ export interface CurrentUser {
   role: string,
   user_id: string
 }
-
-const uri = 'mongodb://mongoadmin:bdung@localhost:27017';
-const PORT = 3000;
 
 const app = express();
 
@@ -28,8 +26,10 @@ declare global {
 }
 
 async function main() {
-  await mongoose.connect(uri);
-  app.listen(3000);
+  dotenv.config();
+  const { PORT, URI = 'mongodb://mongoadmin:bdung@localhost:27017' } = process.env;
+  await mongoose.connect(URI);
+  app.listen(PORT);
   console.log(`Server started on port ${PORT}`);
 }
 
@@ -74,7 +74,7 @@ app.use('/login', async (req: Request, res: Response) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign(
         { user_id: user._id, email, role: user.role },
-        'someverysecterstring'!,
+        process.env.TOKEN_KEY!,
         {
           expiresIn: '2h',
         }
