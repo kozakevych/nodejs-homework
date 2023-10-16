@@ -14,6 +14,14 @@
     "seeds": "node ./app/seeds/seed-products.js && node ./app/seeds/seed-carts.js",
     "build": "tsc"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test",
+      "post-merge": "npm run security-check"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kozakevych/nodejs-homework.git"
@@ -31,6 +39,7 @@
     "@types/jsonwebtoken": "^9.0.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.8.5",
+    "husky": "^8.0.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
