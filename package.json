@@ -7,11 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "express-6": "ts-node ./6-express/index.ts",
-    "nosql-7": "ts-node ./7-nosql-db/index.ts",
-    "auth-8": "ts-node ./7-nosql-db/index.ts",
-    "tools-10": "ts-node ./7-nosql-db/index.ts",
-    "tools-10:prod": "NODE_ENV=production ts-node ./7-nosql-db/index.ts",
-    "seeds": "node ./7-nosql-db/seeds/seed-products.js && node ./7-nosql-db/seeds/seed-carts.js",
+    "nosql-7": "ts-node ./app/index.ts",
+    "auth-8": "ts-node ./app/index.ts",
+    "tools-10": "ts-node ./app/index.ts",
+    "tools-10:prod": "NODE_ENV=production ts-node ./app/index.ts",
+    "seeds": "node ./app/seeds/seed-products.js && node ./app/seeds/seed-carts.js",
     "build": "tsc"
   },
   "repository": {

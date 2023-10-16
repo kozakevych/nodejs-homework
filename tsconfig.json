@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "rootDir": "7-nosql-db",
+    "rootDir": "app",
     "strict": true,
     "baseUrl": "node_modules/@types",
     "typeRoots": ["**/*.d.ts"],
