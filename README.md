@@ -68,3 +68,25 @@ Cart routes to call:
 - Admin user trying to delete:
 
 ![delete-success](./screenshots/9-auth/delete-admin.png)
+
+##### 10. Deploy tools and automation
+
+- Health check API
+
+![health-check](./screenshots/10-deploy-tools/api-health.png)
+
+- Logs
+
+![logs](./screenshots/10-deploy-tools/logs.png)
+
+- Debug
+
+![debug](./screenshots/10-deploy-tools/debug.png)
+
+- Prod command (no debug)
+
+![prod-command](./screenshots/10-deploy-tools/prod-command.png)
+
+- Dockerize
+
+![dockerize](./screenshots/10-deploy-tools/dockerize.png)
