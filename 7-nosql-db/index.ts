@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cartRoutes from './routes/cartRoutes';
 import productRoutes from './routes/productRoutes';
+import healthRoutes from './routes/healthCheck';
 import mongoose from 'mongoose';
 import User from './models/user.model';
 import bcrypt from 'bcryptjs';
@@ -16,6 +17,7 @@ export interface CurrentUser {
 }
 
 const app = express();
+let connections: any = [];
 
 declare global {
   namespace Express {
@@ -27,10 +29,41 @@ declare global {
 
 async function main() {
   dotenv.config();
-  const { PORT, URI = 'mongodb://mongoadmin:bdung@localhost:27017' } = process.env;
-  await mongoose.connect(URI);
-  app.listen(PORT);
+  const { PORT, URI } = process.env;
+  await mongoose.connect(URI || 'mongodb://mongoadmin:bdung@localhost:27017');
+  const server = app.listen(PORT || 3000);
+
   console.log(`Server started on port ${PORT}`);
+
+  server.on('connection', (connection) => {
+    connections.push(connection);
+    connection.on('close', () => {
+      connections = connections.filter((currentConnection: any) => currentConnection !== connection);
+    });
+  });
+
+  function shutdown() {
+    console.log('Received kill signal, shutting down gracefully');
+    
+    server.close(() => {
+      console.log('Closed out remaining connections');
+      process.exit(0);
+    });
+  
+    setTimeout(() => {
+      console.error('Could not close connections in time, forcefully shutting down');
+      process.exit(1);
+    }, 20000);
+  
+    connections.forEach((connection: any) => connection.end());
+
+    setTimeout(() => {
+      connections.forEach((connection: any) => connection.destroy());
+    }, 10000);
+  }
+  
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
 }
 
 app.use(bodyParser.json());
@@ -93,6 +126,7 @@ app.use('/login', async (req: Request, res: Response) => {
 
 app.use('/api/profile/cart', cartRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/health', healthRoutes);
 
 app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);
