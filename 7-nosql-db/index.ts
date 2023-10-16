@@ -8,6 +8,8 @@ import User from './models/user.model';
 import bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { requestLogger } from './logger/requestLogger';
+import logger from './logger/logger';
 
 export interface CurrentUser {
   id: string,
@@ -33,7 +35,7 @@ async function main() {
   await mongoose.connect(URI || 'mongodb://mongoadmin:bdung@localhost:27017');
   const server = app.listen(PORT || 3000);
 
-  console.log(`Server started on port ${PORT}`);
+  logger.info(`Server started on port ${PORT}`);
 
   server.on('connection', (connection) => {
     connections.push(connection);
@@ -68,6 +70,7 @@ async function main() {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(requestLogger);
 
 app.use('/register', async (req: Request, res: Response) => {
   try {
