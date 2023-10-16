@@ -1,1 +1,6 @@
 2023-10-16T12:41:23.959Z [32minfo[39m: Server started on port 3000
+2023-10-16T12:53:33.054Z [32minfo[39m: Server started on port 3000
+2023-10-16T12:53:39.356Z [32minfo[39m: [GET] /api/health - 200 (22ms)
+2023-10-16T12:53:42.846Z [32minfo[39m: [GET] /api/profile/cart - 200 (49ms)
+2023-10-16T12:54:15.081Z [32minfo[39m: Server started on port 3000
+2023-10-16T12:54:18.609Z [32minfo[39m: [GET] /api/profile/cart - 200 (19ms)

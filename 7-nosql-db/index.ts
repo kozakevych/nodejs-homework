@@ -10,6 +10,7 @@ import * as jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { requestLogger } from './logger/requestLogger';
 import logger from './logger/logger';
+import debug from 'debug';
 
 export interface CurrentUser {
   id: string,
@@ -31,6 +32,13 @@ declare global {
 
 async function main() {
   dotenv.config();
+
+  if (process.env.NODE_ENV === 'development') {
+    debug.enable(process.env.DEBUG || 'app:*');
+  } else {
+    debug.disable();
+  }
+
   const { PORT, URI } = process.env;
   await mongoose.connect(URI || 'mongodb://mongoadmin:bdung@localhost:27017');
   const server = app.listen(PORT || 3000);

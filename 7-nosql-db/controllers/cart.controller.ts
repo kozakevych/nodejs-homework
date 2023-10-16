@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 import CartService from '../services/cart.service';
 import Joi from 'joi';
+import debug from 'debug';
+const log = debug('app:cart');
 
 class CartController {
   async getCart(req: Request, res: Response) {
+    log('Cart debug log:', req)
     const userId = req.header('x-user-id');
     if (!userId) {
       return res.status(404).json({ error: 'No user id provided!' });
