@@ -12,7 +12,9 @@
     "tools-10": "ts-node ./app/index.ts",
     "tools-10:prod": "NODE_ENV=production ts-node ./app/index.ts",
     "seeds": "node ./app/seeds/seed-products.js && node ./app/seeds/seed-carts.js",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint .",
+    "security-check": "npm audit --json"
   },
   "husky": {
     "hooks": {
