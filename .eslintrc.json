@@ -12,5 +12,10 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "semi": "error",
+        "semi-spacing": "error",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|__" }],
+        "max-len": ["error", { "code": 200 }],
+        "max-lines": ["error", { "max": 500 }]
     }
 }
